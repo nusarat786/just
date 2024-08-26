@@ -82,7 +82,7 @@ var Login =(props)=>{
 
             // Set cookie string with both id and token
             document.cookie = `id=${id};expires=${expiryTime.toUTCString()};path=/`;
-            document.cookie = `token=${token};expires=${expiryTime.toUTCString()};path=/`;
+            document.cookie = `jwt=${token};expires=${expiryTime.toUTCString()};path=/`;
              
             setLoggedIn(true);
             setFormData({ ...loginformData, status: "PROCESSED" });
