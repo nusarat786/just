@@ -61,7 +61,7 @@ var Login =(props)=>{
         
         try {
             var response = await axios.post(
-                `${process.env.REACT_APP_URL}/userRoutes/login`, 
+                `${process.env.REACT_APP_URL}/userRoutes/login-v2`, 
             {
                 email: loginformData.email,
                 password: loginformData.password
@@ -73,15 +73,16 @@ var Login =(props)=>{
             console.log(response)
             var data= response.data;
             var id  = data.id;
-
+            var token = data.token;
             // Calculate expiry time (10 hours from now)
             const expiryTime = new Date(Date.now() + 3600000); // 10 hours in milliseconds
 
             // Set cookie string
             const cookieString = `id=${id};expires=${expiryTime.toUTCString()};path=/`;
 
-            // Set the cookie
-            document.cookie = cookieString;
+            // Set cookie string with both id and token
+            document.cookie = `id=${id};expires=${expiryTime.toUTCString()};path=/`;
+            document.cookie = `token=${token};expires=${expiryTime.toUTCString()};path=/`;
              
             setLoggedIn(true);
             setFormData({ ...loginformData, status: "PROCESSED" });
